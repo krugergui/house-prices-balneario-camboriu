@@ -35,7 +35,7 @@ class WebDriver:
 			self.options.add_argument("--headless")
 		
 		# Loads uBlock extension
-		self.options.add_argument(f'--load-extension=C:\\Users\\{private.USER}\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\cjpalhdlnbpafiamejdnhcphjbkeiagm\\1.46.0_0')
+		self.options.add_argument(f'--load-extension=C:\\Users\\{private.USER}\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\cjpalhdlnbpafiamejdnhcphjbkeiagm\\1.50.0_0')
 		self.options.add_argument("--start-maximized")
 		self.options.add_argument("--log-level=5")
 		self.options.add_argument("--disable-smooth-scrolling")

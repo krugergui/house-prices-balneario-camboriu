@@ -11,6 +11,7 @@ log_*
 deprecated
 
 # Byte-compiled / optimized / DLL files
+catboost_info
 __pycache__/
 *.py[cod]
 *$py.class

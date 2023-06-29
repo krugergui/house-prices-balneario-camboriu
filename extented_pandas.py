@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+from matplotlib import pyplot as plt
+import seaborn as sns
 
 def infoOut(df: pd.DataFrame, details: bool=False) -> pd.DataFrame:
 	dfInfo = df.columns.to_frame(name='Column')
@@ -46,16 +48,24 @@ def get_lower_and_upper_bounds_for_outliers(series: pd.Series) -> tuple[float, f
 	return lower_q, upper_q
 
 def AB_Test(dataframe: pd.DataFrame, group: str, target: str, p_val_limit = 0.05) -> pd.DataFrame:
-	"""_summary_
+	"""
+	Performs an A/B test on the data in the given DataFrame.
+
+	The function splits the data into two groups based on the group column and 
+	tests the normality of the target column for each group using the Shapiro-Wilk test. 
+	If both groups are normally distributed, it performs a parametric test (t-test) with 
+	either equal or unequal variances depending on the result of Levene's test for 
+	homogeneity of variances. If one or both groups are not normally distributed, 
+	it performs a non-parametric test (Mann-Whitney U test).
 
 	Args:
-		dataframe (pd.DataFrame): _description_
-		group (str): _description_
-		target (str): _description_
-		p_val_limit (float, optional): _description_. Defaults to 0.05.
+		dataframe (pd.DataFrame): The DataFrame containing the data to be tested.
+		group (str): The name of the column in the DataFrame used to split the data into two groups.
+		target (str): The name of the column in the DataFrame containing the data to be tested.
+		p_val_limit (float, optional): The p-value limit for statistical tests. Defaults to 0.05.
 
 	Returns:
-		pd.DataFrame: _description_
+		pd.DataFrame: A DataFrame containing the results of the A/B test, including the type of test used, whether or not the null hypothesis was rejected, the p-value, a comment on whether the A/B groups are similar or not, and summary statistics for each group.
 	"""
 	
 	# Packages
@@ -123,3 +133,8 @@ def AB_Test(dataframe: pd.DataFrame, group: str, target: str, p_val_limit = 0.05
 	# print("H1: A != B", "\n")
 	
 	return temp
+
+def draw_1_1_line(ax:plt.axes) -> None:
+	_, xmax, _, ymax = ax.axis()
+	axis_limit = [0, min(xmax, ymax)]
+	sns.lineplot(x=axis_limit, y=axis_limit, color='r', ax=ax)
