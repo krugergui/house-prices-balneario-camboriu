@@ -27,25 +27,34 @@ def infoOut(df: pd.DataFrame, details: bool=False) -> pd.DataFrame:
 		'% Non-Null': '{:.0%}'.format
 	})
 
-def get_lower_and_upper_bounds_for_outliers(series: pd.Series) -> tuple[float, float]:
-	"""Receives a panda series and returns the lower and upper bounds that defines the outliers based on the formula:
-	Lower bound: Q25 - 1.5 * IQR
-	Upper bound: Q75 + 1.5 * IQR
-
-	Args:
-		series (pd.Series)
-		print_quartiles (bool, optional): Defaults to True.
-
-	Returns:
-		tuple[float LowerBound, float UpperBound]
+def get_outliers(series: pd.Series, by:str='zscore') -> tuple[float, float]:
 	"""
-	q25 = series.quantile(.25)
-	q75 = series.quantile(.75)
-	iqr = q75 - q25
-	lower_q = q25 - (1.5 * iqr)
-	upper_q = q75 + (1.5 * iqr)
+    Get the lower and upper bounds of the outliers in a pandas series.
 
-	return lower_q, upper_q
+    Parameters:
+    -----------
+    series : pd.Series
+        The pandas series to get the outliers from.
+    by : str, optional (default='zscore')
+        The method to use for calculating the outliers. Can be 'IQR' or 'zscore'.
+
+    Returns:
+    --------
+    tuple(float, float)
+        A tuple containing the lower and upper bounds of the outliers.
+    """
+	if by == 'IQR':
+		q25 = series.quantile(.25)
+		q75 = series.quantile(.75)
+		iqr = q75 - q25
+
+		return q25 - (1.5 * iqr), q75 + (1.5 * iqr)
+
+	if by == 'zscore':
+		mean, std = series.agg(['mean', 'std'])
+		return mean - 3 * std, mean + 3 * std
+	
+	raise ValueError(f'"by" not found: {by}')
 
 def AB_Test(dataframe: pd.DataFrame, group: str, target: str, p_val_limit = 0.05) -> pd.DataFrame:
 	"""
