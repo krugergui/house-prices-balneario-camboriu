@@ -2,7 +2,7 @@
 
 At the moment there are more than 15.000 houses and apartments for sale in the small and beatiful city of Balneário Camboriú - Brazil, with an area of just 45 km², it means there are many options independent of where you want to live, near the Interpraias Park or near the Big Wheel.
 
-![GasparRocha @ [pixabay.com](http://pixabay.com/)](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled.png)
+![GasparRocha @ [pixabay.com](http://pixabay.com/)](Docs/Images/Untitled.png)
 
 GasparRocha @ [pixabay.com](http://pixabay.com/)
 
@@ -14,7 +14,7 @@ For this I decided to use statiscal analysis and ML models to predict the price 
 
 To begin this search I’ve scrapped website’s listings and stored all the data in a Relational Database (MySQL). On the first day alone there were 9616 scrapped listing, this would grow to 15469 in another 20 days.
 
-![Website scrapping in progress](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled_1(1).gif)
+![Website scrapping in progress](Docs/Images/Untitled_1(1).gif)
 
 Website scrapping in progress
 
@@ -30,7 +30,7 @@ In this code you’ll find:
 
 The listings included the address, description, price, area, number of bedrooms and bathrooms, and sometimes a condominium fee and floor. There was also a huge list of amenities, in total 167 different types, I created  then 2 SQL tables inside the main Database, one for the listings and one for the amenities:
 
-![Schema of the Database](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%201.png)
+![Schema of the Database](Docs/Images/Untitled%201.png)
 
 Schema of the Database
 
@@ -42,6 +42,7 @@ Schema of the Database
 
 In this code you’ll find:
 🐍 Python
+
 - Data manipulation with Pandas
 - Data visualization with Matplotlib and Seaborn
 - Statistics with Scipy
@@ -53,7 +54,7 @@ In this code you’ll find:
 
 Using Pandas and **Matplotlib** we can take a quick look into what we are our pool of options:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%202.png)
+![Untitled](Docs/Images/Untitled%202.png)
 
 Our price range is huge, on the right we can see the outliers as the dots, the cheapest option is R$250K, while on the top we can see our most expensive place at a staggering R$55M, 220 times more expensive than the cheapest one.
 
@@ -73,13 +74,13 @@ After scraping up the data we have to clean it before analysing it, even though 
 
 In the title of each entry there was the type house for sale, extracting this from the string results the following types for sale:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%203.png)
+![Untitled](Docs/Images/Untitled%203.png)
 
 The first three are Apartment, House and Penthouse, respectively, after that we have commercial spots and free lots, which we are not interested in, so we’ll exclude those. Gated Community Houses (Casa de Condomínio) will also be included in the research.
 
 This left us with this distribution:
 
-![Count of every type of entries for sale](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%204.png)
+![Count of every type of entries for sale](Docs/Images/Untitled%204.png)
 
 Count of every type of entries for sale
 
@@ -87,17 +88,17 @@ Count of every type of entries for sale
 
 In the address there is also the district which the place finds itself in, to find out which are the districts from Balneário Camboriú I retrieved a table from Wikipedia. After the first run it was evident that there was an unofficial district - Barra Sul - which had very high prices.
 
-![Count of every entry by district](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%205.png)
+![Count of every entry by district](Docs/Images/Untitled%205.png)
 
 Count of every entry by district
 
 Below we can see the price distribution among these districts:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%206.png)
+![Untitled](Docs/Images/Untitled%206.png)
 
 Centro (City Center) has the higher range - as it has most of the entries, while Barra Sul has a higher average than the others. Vila Real has the cheapest entries, as it is located behind the highway far away from the beach, making it undesirable for most who come here looking to enjoy the sea.
 
-![Google maps](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%207.png)
+![Google maps](Docs/Images/Untitled%207.png)
 
 Google maps
 
@@ -115,7 +116,7 @@ Outliers can heavily influence the outcomes of the prediction, a few causes for 
 
 This analysis was carried out in a few different ways, the first was to analyse the boxplots:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%208.png)
+![Untitled](Docs/Images/Untitled%208.png)
 
 Here in the area box plot on the left we see that the top data point is really standing out, analysing the entry we see that it was an empty lot that was wrongly inputted as an apartment, so it will be removed.
 
@@ -125,7 +126,7 @@ To set a numerical value in what consists an outlier, rules was set according to
 
 On the price box plot below we also see a very strong outlier:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%209.png)
+![Untitled](Docs/Images/Untitled%209.png)
 
 With a price of R$55M it is 70% more expensive than the second one, but this wasn’t a mistake, it is really a unique condo, so it will be included in the training data.
 
@@ -135,7 +136,7 @@ The same analysis was carried out on all numerical features.
 
 As seen above the price distribution is heavily right skewed, this usually brings bias to our models, we can easily check this with a Quantile-Quantile Plot, and when non-normality is found, we can check if the log of the data becomes normal:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2010.png)
+![Untitled](Docs/Images/Untitled%2010.png)
 
 On the top left we can see that the data is non-normal, as it deviates heavily from the red line, on the top right we can see the log of the price is very normal, we can use this to get a better prediction in our models.
 
@@ -153,7 +154,7 @@ Using too many features could clog up the models, making it biased, having too f
 
 The more diversification a variable has with another and the target feature (Price), the better it can train the models. For this we can easily use a correlation matrix:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2011.png)
+![Untitled](Docs/Images/Untitled%2011.png)
 
 With the exception of condominium fee - which had many empty values to begin with - all the numerical features seem to have a good linear relation with the target feature, and can be used to describe it. Furthermore, none of the features seem to completely explain one another, if this was the case we’d have to remove one of them as not to bias the models.
 
@@ -167,15 +168,15 @@ This was done with A/B testing using various methods (Shapiro to check for norma
 
 Example of features that were considered too similar and weren’t used in the models:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2012.png)
+![Untitled](Docs/Images/Untitled%2012.png)
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2013.png)
+![Untitled](Docs/Images/Untitled%2013.png)
 
 Example of features that were deemed good for the models:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2014.png)
+![Untitled](Docs/Images/Untitled%2014.png)
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2015.png)
+![Untitled](Docs/Images/Untitled%2015.png)
 
 # Training the models
 
@@ -185,7 +186,7 @@ As a baseline for model selection we’ll use a linear regression, this fits a s
 
 [Code for the linear regressor](https://www.notion.so/Code-for-the-linear-regressor-b7bf0de56497461c92d0e11767010bcb?pvs=21)
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2016.png)
+![Untitled](Docs/Images/Untitled%2016.png)
 
 In the picture above we see that the best linear regressor found was Lasso Regressor, with an mean squared error of 0.75 for both the training and test set. The top two graphs shows that predicted value (x-axis) plotted against the real value (y-axis), a perfect prediction would see all values falling on the red line.
 
@@ -202,7 +203,7 @@ A better regressor is a random forest, it utilizes many forests, each with diffe
 
 </aside>
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2017.png)
+![Untitled](Docs/Images/Untitled%2017.png)
 
 tWith the default values we can see that the random forest regressor already yields a much better result in predicting the true value, the residuals continue to have non-discernable pattern and the data comes a lot closer to a straight line.
 
@@ -225,15 +226,15 @@ CATBoost had the best score with default parameters, so a more detailed hyper pa
 
 The defaults values almost all led to a better model, with exception to learning rate which managed to slight improve the R2 score.
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2018.png)
+![Untitled](Docs/Images/Untitled%2018.png)
 
 ## Further residual analysis
 
 When visualizing the residuals, it became clear that the bigger residuals where in the entries with the bigger areas, to see if there is a pattern in the predictions, another plot of the residuals against the features was conducted:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2019.png)
+![Untitled](Docs/Images/Untitled%2019.png)
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2020.png)
+![Untitled](Docs/Images/Untitled%2020.png)
 
 As the tables showed, the larger the area the more inaccurate our models are, if a greater precision is needed, a new model with smaller areas could be trained.
 
@@ -241,7 +242,7 @@ As the tables showed, the larger the area the more inaccurate our models are, if
 
 Back to the original problem, we wanted to find the best bang for the buck in the R$800K to R$1.2M range. For this we’ll search for apartments with a predicted value below the real value, and analyse them manually.
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2021.png)
+![Untitled](Docs/Images/Untitled%2021.png)
 
 The entries below the dashed line, 19 in total, are our objects of interest, if the model gave a good prediction, they should be undervalued.
 
@@ -251,18 +252,18 @@ The next 3 points and most of these “best deals” shows another problem with 
 
 Another problem found when viewing these entries is the districts feature, “Centro” includes both beach front apartments as well as “highway front” as seen below, a better predictor would be distance to the beach.
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2022.png)
+![Untitled](Docs/Images/Untitled%2022.png)
 
 Also while reviewing the options some pictures seemed familiar, 3 of the listings were using the same pictures for apartments in different parts of the city, with different areas and bedrooms, also indicating that these could be a scam.
 
 Here’s a list of all potential places sorted by residual value:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2023.png)
+![Untitled](Docs/Images/Untitled%2023.png)
 
 # Data leakage test
 
 To be sure that no data was leaked during the first data analysis, 3000 new rows of data were acquired and run in the previous models, this is the result:
 
-![Untitled](Finding%20the%20right%20place%20c70df3a46dad45b5ab696513e22722f2/Untitled%2024.png)
+![Untitled](Docs/Images/Untitled%2024.png)
 
 All our models dropped in score but Catboost, this shows how robust Catboost is and that our analysis and modelling was consistent, but could be improved with more data, for example, latitude and longitude, year of construction, floor, quality of materials, number of suites, etc.
