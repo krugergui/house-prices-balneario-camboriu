@@ -49,7 +49,7 @@ Website scrapping in progress
 > 🐍 Python - Web scrapping with Selenium in Chrome Browser and JavaScript injection  
 > 🗃 SQL Database - Data retrieval from different tables, unification, update and alteration (new columns are inserted)
 
-The listings included the address, description, price, area, number of bedrooms and bathrooms, and sometimes a condominium fee and floor. There was also a huge list of amenities, in total 167 different types, I created  then 2 SQL tables inside the main Database, one for the listings and one for the amenities:
+The listings included the address, description, price, area, number of bedrooms and bathrooms, and sometimes a condominium fee and floor. There was also a huge list of amenities, in total 167 different types, I created  then 2 SQL tables inside the main Database, one for the listings and one for the amenities, with a many to many link table between them:
 
 ![Schema of the Database](Docs/Images/Untitled%201.png)
 
@@ -60,7 +60,7 @@ Schema of the Database
 > [!NOTE]  
 > Check the code!  
 > [data_exploration.ipynb](https://github.com/krugergui/house-prices-balneario-camboriu/blob/main/notebooks/data_exploration.ipynb)
-> In this code you’ll find:
+> In this code you’ll find:  
 > 🐍 Python
 >
 > - Data manipulation with Pandas
@@ -284,4 +284,4 @@ To be sure that no data was leaked during the first data analysis, 3000 new rows
 
 ![Untitled](Docs/Images/Untitled%2024.png)
 
-All our models dropped in score but Catboost, this shows how robust Catboost is and that our analysis and modelling was consistent, but could be improved with more data, for example, latitude and longitude, year of construction, floor, quality of materials, number of suites, etc.
+Catboost had a miniscule drop, this shows how robust Catboost is and that our analysis and modelling was consistent, but could be improved with more data, for example, latitude and longitude, year of construction, floor, quality of materials, number of suites, etc.
