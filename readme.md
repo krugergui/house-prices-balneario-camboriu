@@ -43,15 +43,11 @@ To begin this search I’ve scrapped website’s listings and stored all the dat
 
 Website scrapping in progress
 
-<aside>
-💡 Check the code!
-[https://github.com/krugergui/house-prices-balneario-camboriu/blob/main/scrape_data.ipynb](https://github.com/krugergui/house-prices-balneario-camboriu/blob/main/scrape_data.ipynb)
-
-In this code you’ll find:
-🐍 Python - Web scrapping with Selenium in Chrome Browser and JavaScript injection
-🗃 SQL Database - Data retrieval from different tables, unification, update and alteration (new columns are inserted)
-
-</aside>
+> [!NOTE]  
+> [scrape_data.ipynb](https://github.com/krugergui/house-prices-balneario-camboriu/blob/main/notebooks/scrape_data.ipynb)  
+> In this code you’ll find:  
+> 🐍 Python - Web scrapping with Selenium in Chrome Browser and JavaScript injection  
+> 🗃 SQL Database - Data retrieval from different tables, unification, update and alteration (new columns are inserted)
 
 The listings included the address, description, price, area, number of bedrooms and bathrooms, and sometimes a condominium fee and floor. There was also a huge list of amenities, in total 167 different types, I created  then 2 SQL tables inside the main Database, one for the listings and one for the amenities:
 
@@ -61,21 +57,18 @@ Schema of the Database
 
 # Exploring the data
 
-<aside>
-💡 Check the code!
-[https://github.com/krugergui/house-prices-balneario-camboriu/blob/main/data_exploration.ipynb](https://github.com/krugergui/house-prices-balneario-camboriu/blob/main/data_exploration.ipynb)
-
-In this code you’ll find:
-🐍 Python
-
-- Data manipulation with Pandas
-- Data visualization with Matplotlib and Seaborn
-- Statistics with Scipy
-- Machine Learning with SKlearn
-
-🗃 SQL Database - Data retrieval
-
-</aside>
+> [!NOTE]  
+> Check the code!  
+> [data_exploration.ipynb](https://github.com/krugergui/house-prices-balneario-camboriu/blob/main/notebooks/data_exploration.ipynb)
+> In this code you’ll find:
+> 🐍 Python
+>
+> - Data manipulation with Pandas
+> - Data visualization with Matplotlib and Seaborn
+> - Statistics with Scipy
+> - Machine Learning with SKlearn  
+>
+> 🗃 SQL Database - Data retrieval
 
 Using Pandas and **Matplotlib** we can take a quick look into what we are our pool of options:
 
