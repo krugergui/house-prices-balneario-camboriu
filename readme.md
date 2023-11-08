@@ -37,7 +37,7 @@ Schema of the Database
 # Exploring the data
 
 <aside>
-💡 Look at the code!
+💡 Check the code!
 [https://github.com/krugergui/house-prices-balneario-camboriu/blob/main/data_exploration.ipynb](https://github.com/krugergui/house-prices-balneario-camboriu/blob/main/data_exploration.ipynb)
 
 In this code you’ll find:
