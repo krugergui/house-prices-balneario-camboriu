@@ -1,4 +1,29 @@
-# Finding the right place
+**Table of contents**
+
+- [Problem description](#problem-description)
+- [Collecting the data](#collecting-the-data)
+- [Exploring the data](#exploring-the-data)
+- [Cleaning up the data](#cleaning-up-the-data)
+  - [Duplicates](#duplicates)
+  - [Creating new features](#creating-new-features)
+    - [District](#district)
+- [Reading up the data for the models](#reading-up-the-data-for-the-models)
+  - [Outliers](#outliers)
+  - [Normality](#normality)
+  - [Empty values](#empty-values)
+- [Which features to use?](#which-features-to-use)
+  - [Correlation](#correlation)
+  - [Categorical feature selection](#categorical-feature-selection)
+- [Training the models](#training-the-models)
+  - [Linear regression](#linear-regression)
+  - [Random Forest Regressor](#random-forest-regressor)
+  - [Other tested models](#other-tested-models)
+- [Chosen model: CATBoost](#chosen-model-catboost)
+  - [Further residual analysis](#further-residual-analysis)
+- [Finding the best deals](#finding-the-best-deals)
+- [Data leakage test](#data-leakage-test)
+
+# Problem description
 
 At the moment there are more than 15.000 houses and apartments for sale in the small and beatiful city of Balneário Camboriú - Brazil, with an area of just 45 km², it means there are many options independent of where you want to live, near the Interpraias Park or near the Big Wheel.
 
@@ -64,9 +89,9 @@ On the middle of the left graphs we can take a look at the most expensive option
 
 And in the bottom we see least expensive options, there are quite a few choices here, my friends stipulated around the R$1M range, around that mark, from R$800K to R$1.2M there are 766 options in our training set.
 
-# Cleaning and tidying up the data
+# Cleaning up the data
 
-### Duplicates
+## Duplicates
 
 After scraping up the data we have to clean it before analysing it, even though each entry was unique, sometimes the same place was put up several times, this can be because of several units of the same building for sale, or the same place was put into the websites system more than once, so we deleted some duplicated places.
 
@@ -106,7 +131,7 @@ Google maps
 
 To have a better precision with the ML models a few things were checked on the data:
 
-### Outliers
+## Outliers
 
 Outliers can heavily influence the outcomes of the prediction, a few causes for outliers are:
 
@@ -132,7 +157,7 @@ With a price of R$55M it is 70% more expensive than the second one, but this was
 
 The same analysis was carried out on all numerical features.
 
-### Normality
+## Normality
 
 As seen above the price distribution is heavily right skewed, this usually brings bias to our models, we can easily check this with a Quantile-Quantile Plot, and when non-normality is found, we can check if the log of the data becomes normal:
 
@@ -142,7 +167,7 @@ On the top left we can see that the data is non-normal, as it deviates heavily f
 
 The same analysis has been carried out in all numerical features.
 
-### Empty values
+## Empty values
 
 Sometimes the data is not complete, in the Garages feature there were a few empty values, 388 to be exact, as to be able to use this feature in our models some value must be given. Just using the average would skew the data, since there are big apartments would be left with too few garages, and small ones would get more, so a ratio of garages per m² was found, and inputted into the training data.
 
@@ -150,7 +175,7 @@ Sometimes the data is not complete, in the Garages feature there were a few empt
 
 Using too many features could clog up the models, making it biased, having too few would create this problem as well, to address this there was a few methods used.
 
-### Correlation
+## Correlation
 
 The more diversification a variable has with another and the target feature (Price), the better it can train the models. For this we can easily use a correlation matrix:
 
@@ -160,7 +185,7 @@ With the exception of condominium fee - which had many empty values to begin wit
 
 The difference from Spearman’s to Pearson’s correlation indicates that the Condominium Fee does not follow a linear relation to Price, analysing a scatterplot from price to condominium we see that they have a second degree relationship, this should then be adapted to the feature in case it is used in the models.
 
-### Categorical feature selection
+## Categorical feature selection
 
 To fine tune the categorical feature selection a statistical analysis was conducted, it consisted in verifying if the population with and without the specific feature had very different characteristics, this analysis in specific verified means and standard deviation.
 
@@ -192,7 +217,7 @@ In the picture above we see that the best linear regressor found was Lasso Regre
 
 On the bottom graphs we can see the residuals (how much the prediction differ from the real value), if there were a pattern in these residuals, it would mean there was a relation in the prices that wasn’t found, but there is no pattern to be seen.
 
-# Random Forest Regressor
+### Random Forest Regressor
 
 A better regressor is a random forest, it utilizes many forests, each with different features and leaf nodes, with different conditions to reach this leaf node, all these leaf nodes then “vote” on the predicted value.
 
@@ -216,9 +241,9 @@ Hyper parametrization was conducted and this resulted in a slightly improved sco
 
 </aside>
 
-# Other tested models
+### Other tested models
 
-Models that were also tested but performed worse were LightGBM, XGBoost and GradientBoostRegressor.
+Models that were also tested but performed worse were LightGBM, XGBoost and GradientBoostRegressor. These can be seen in the `data_exploration.ipynb` notebook.
 
 # Chosen model: CATBoost
 
